@@ -1,122 +1,106 @@
-# Digital Market Project
+# Digital Market
 
-The Digital Market project is a simple Java-based digital marketplace that allows buyers, sellers, and administrators to interact. It includes features such as user registration, login, product listing, purchasing, and administrative operations.
+Welcome to Digital Market - your go-to platform for buying and selling digital goods.
 
-## Table of Contents
+## Introduction
 
-- [Project Overview](#project-overview)
-- [Key Components](#key-components)
-- [How to Run](#how-to-run)
-- [Implementation Details](#implementation-details)
-  - [Structures](#structures)
-  - [Main Class](#main-class)
-  - [Methods](#methods)
-- [License](#license)
+Digital Market provides a convenient and secure platform for digital transactions, connecting buyers and sellers to thrive in the digital marketplace.
 
-## Project Overview
+## Features
 
-Welcome to the Digital Market! This project aims to provide a basic digital marketplace where users can register, log in, buy and sell products, and administrators can perform administrative tasks.
+- Buyer, Seller, and Admin functionalities
+- User authentication and login system
+- Product posting for sellers
+- Product purchase for buyers
+- Account number generation and management
+- File-based data storage for users and products
 
-## Key Components
+## Getting Started
 
-### 1. Structures
+1. Clone the repository:
 
-#### Buyer Structure
+    ```bash
+    git clone <repository-url>
+    ```
 
-- **Attributes:**
-  - `accountNumber`: Unique identifier for the buyer's account.
-  - `name`: Name of the buyer.
-  - `password`: Password for buyer authentication.
-  - `moneyDeposit`: Amount of money deposited by the buyer.
-  - `phoneNumber`: Phone number of the buyer.
-  - `emailAddress`: Email address of the buyer.
+2. Compile and run the DigitalMarket.java file:
 
-#### Seller Structure
+    ```bash
+    javac DigitalMarket.java
+    java DigitalMarket
+    ```
 
-- **Attributes:**
-  - `accountNumber`: Unique identifier for the seller's account.
-  - `name`: Name of the seller.
-  - `password`: Password for seller authentication.
-  - `moneyDeposit`: Amount of money deposited by the seller.
-  - `phoneNumber`: Phone number of the seller.
-  - `emailAddress`: Email address of the seller.
+3. Follow the on-screen instructions to navigate through the application.
 
-#### Product Structure
+## Usage
 
-- **Attributes:**
-  - `name`: Name of the product.
-  - `price`: Price of the product.
-  - `type`: Type or category of the product.
-  - `totalNumber`: Total quantity of the product available.
-  - `sellerPhoneNumber`: Phone number of the seller associated with the product.
+### Main Menu
 
-### 2. Main Class
+- **Service**
+- **Terms and Conditions**
+- **How to use**
+- **About**
 
-The main class is `DigitalMarket`, responsible for the execution of the program. It contains static lists to store instances of buyers, sellers, and products.
+### Service Menu
 
-### 3. Methods
+#### Buyer Menu
 
-#### Introduction
+- **Login**
+- **Sign up**
 
-- Displays a welcome message introducing the Digital Market.
+#### Seller Menu
 
-#### Service Options
+- **Login**
+- **Sign up**
 
-- Displays a menu with options such as Service, Terms and Conditions, How to use, About, and Exit.
-- Allows users to choose different services or exit the program.
+#### Admin Menu
 
-#### Service
+- **Login**
 
-- Allows users to select Buyer, Seller, or Admin services.
+### Admin Sub-Menu
 
-#### Buyer Service
+- **Open Buyers File (Bfile.txt)**
+- **Open Sellers File (Sfile.txt)**
+- **Open Products File (product.txt)**
 
-- Handles buyer-specific functionalities such as signup, login, and product purchase.
+## Contributors
+SAFEWAY DIGITAL MARKET
+GROUP MEMBERS ON THE PROJECT
+    1) Abrham Adugna
+    2) Abyayle Ababaye
+    3) Adonay Kinfe
+    4) Aelaf Tsegaye
+    5) Alen Wenduwesun
 
-#### Seller Service
+## Code Overview
 
-- Manages seller-specific operations like signup, login, product listing, and new product posting.
+### User Class
 
-#### Admin Service
+The `User` class is an abstract class representing a generic user. It contains methods for user login, displaying user information, and user signup. The class also includes helper methods for saving user information to a file and generating account numbers.
+### Buyer Class
+The `Buyer` class extends the `User` class and represents a buyer in the Digital Market. It includes additional methods for purchasing products, updating buyer information, and displaying product information.
+### Seller Class
 
-- Provides administrative access to view buyer, seller, and product data.
+The `Seller` class extends the `User` class and represents a seller in the Digital Market. It includes methods for posting products, updating seller information, and displaying product information.
 
-#### Open Terms and Conditions
+### Admin Class
 
-- Displays the terms and conditions of using the Digital Market.
+The `Admin` class extends the `User` class and represents an admin in the Digital Market. It includes methods for admin login and displaying admin information.
 
-#### Open How to Use
+### Product Class
 
-- Displays information on how to use the Digital Market.
+The `Product` class represents a digital product in the Digital Market. It contains information such as name, price, type, total number, and seller's phone number.
 
-#### About Company
+### DigitalMarket Class
 
-- Displays information about the L Digital Market company.
+The `DigitalMarket` class contains the main method that serves as the entry point for the application. It provides a user interface for navigating through the main menu, service menu, and admin sub-menu.
 
-#### Save Buyer/Seller/Product Data
+## Acknowledgments
 
-- Saves user and product data to files.
+- Thanks to AL-T-1 for the contributions done to the project.
 
-#### Load Buyer/Seller/Product Data
+## Contact
 
-- Loads user and product data from files.
+For inquiries, please contact AL-T-1.
 
-#### Display Product/Buyer/Seller Table
-
-- Displays tables of products, buyers, and sellers.
-
-#### Buy Product
-
-- Allows a buyer to purchase a product.
-
-#### Find Buyer Index
-
-- Finds the index of a buyer based on the account number.
-
-## How to Run
-
-1. Ensure you have Java installed on your machine.
-2. Compile the `DigitalMarket.java` file using a Java compiler.
-   ```bash
-   javac DigitalMarket.java
-
+---
