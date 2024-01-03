@@ -2,7 +2,7 @@
 SAFEWAY DIGITAL MARKET
 GROUP MEMBERS ON THE PROJECT
     1) Abrham Adugna
-    2) Abyayle Ababaye
+    2) Abyayel Abebaye
     3) Adonay Kinfe
     4) Aelaf Tsegaye
     5) Alen Wenduwesun
@@ -164,7 +164,7 @@ class Buyer extends User {
 
         saveUserToFile("Bfile.txt");
 
-        System.out.println("Buyer account created successfully!");
+        System.out.println("Buyer account created successfully! Your account number is"+accountNumber);
     }
     private double getDepositAmount() {
         double deposit = 0;
@@ -186,7 +186,7 @@ class Buyer extends User {
     }
     private void purchaseProduct() {
         displayProductFile();
-        
+
         // Get user input for the product to purchase
         String productName = getInput("Enter the name of the product you want to purchase: ");
         int quantity = getAmountInput("Enter the quantity to purchase: ");
@@ -200,7 +200,7 @@ class Buyer extends User {
             if (totalPrice <= getMoneyDeposit()) {
                 // Deduct the total price from the buyer's money deposit
                 setMoneyDeposit(getMoneyDeposit() - totalPrice);
-                
+
                 // Update buyer information in Bfile.txt
                 updateBuyerInfo(this);
 
@@ -221,11 +221,22 @@ class Buyer extends User {
     }
 
     private void displayProductFile() {
-        System.out.println("\nAvailable Products:");
+        System.out.printf("---------------------------------------------------------------------------------------------------\n");
+        System.out.printf("                                          PRODUCT LIST\n");
+        System.out.printf("---------------------------------------------------------------------------------------------------\n");
+        System.out.printf("|%-25s |%-10s| %-26s|%10s|%20s|\n","   Name","   Price","     Category","Quantity ","Phone No     ");
+        System.out.printf("---------------------------------------------------------------------------------------------------\n");
         try {
             List<String> lines = Files.readAllLines(Paths.get("product.txt"));
             for (String line : lines) {
-                System.out.println(line);
+
+
+
+                String[] substrings = line.split(",");
+                System.out.printf("|%-25s |%-10s| %-26s|%10s|%20s|\n","   "+substrings[0],"   "+substrings[1],"     "+substrings[2],substrings[3]+" ",substrings[4]+"    ");
+                System.out.printf("---------------------------------------------------------------------------------------------------\n");
+
+
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading the product file: " + e.getMessage());
@@ -339,10 +350,10 @@ class Buyer extends User {
         }
     }
     public double getMoneyDeposit() {
-    return moneyDeposit;
+        return moneyDeposit;
     }
     public void setMoneyDeposit(double moneyDeposit) {
-    this.moneyDeposit = moneyDeposit;
+        this.moneyDeposit = moneyDeposit;
     }
 
 }
@@ -432,7 +443,7 @@ class Seller extends User {
 
         saveUserToFile("Sfile.txt");
 
-        System.out.println("Seller account created successfully!");
+        System.out.println("Seller account created successfully!Your account number is"+accountNumber);
     }
     private double getDepositAmount() {
         double deposit = 0;
@@ -459,7 +470,7 @@ class Seller extends User {
         double productPrice = getDoubleInput("Enter the product price: $");
         String productType = getInput("Enter the product type: ");
         int productAmount = getAmountInput("Enter the product amount: ");
-        
+
         Product newProduct = new Product(productName, productPrice, productType, productAmount, phoneNumber);
 
         // Save new product information to product.txt
@@ -682,9 +693,9 @@ public class DigitalMarket {
         System.out.println("\nSeller Menu:");
         System.out.println("1. Login");
         System.out.println("2. Sign up");
-        
+
         int choice = getChoice(1, 2);
-        
+
         switch (choice) {
             case 1:
                 Seller seller = new Seller("", "", "", 0.0, "", "");
@@ -725,13 +736,13 @@ public class DigitalMarket {
 
             switch (choice) {
                 case 1:
-                    displayFileContent("Bfile.txt");
+                    displayUFileContent("Bfile.txt","BUYER");
                     break;
                 case 2:
-                    displayFileContent("Sfile.txt");
+                    displayUFileContent("Sfile.txt","SELLER");
                     break;
                 case 3:
-                    displayFileContent("product.txt");
+                    displayPFileContent("product.txt");
                     break;
             }
         }
@@ -753,6 +764,45 @@ public class DigitalMarket {
         }
         return choice;
     }
+    private static void displayUFileContent(String fileName, String us) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+
+            System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------\n");
+            System.out.printf("                                          "+us+ " LIST\n");
+            System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------\n");
+            System.out.printf("|%-10s |%-40s| %-20s|%10s|%20s|%-30s|\n","Account No","   Name","   Password","Balance","Phone No     ","     Email");
+            while ((line = reader.readLine()) != null) {
+                String[] substrings = line.split(",");
+                System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------\n");
+                System.out.printf("|%-10s |%-40s| %-20s|%10s|%20s|%-30s|\n"," "+substrings[0],"  "+substrings[1],substrings[2],substrings[3],substrings[4]+" ","     "+substrings[5]);
+                System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------\n");
+
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file: " + e.getMessage());
+        }
+    }
+    private static void displayPFileContent(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+
+
+            System.out.printf("---------------------------------------------------------------------------------------------------\n");
+            System.out.printf("                                          PRODUCT LIST\n");
+            System.out.printf("---------------------------------------------------------------------------------------------------\n");
+            System.out.printf("|%-25s |%-10s| %-26s|%10s|%20s|\n","   Name","   Price","     Category","Quantity ","Phone No     ");
+            System.out.printf("---------------------------------------------------------------------------------------------------\n");
+            while ((line = reader.readLine()) != null) {
+                String[] substrings = line.split(",");
+                System.out.printf("|%-25s |%-10s| %-26s|%10s|%20s|\n","   "+substrings[0],"   "+substrings[1],"     "+substrings[2],substrings[3]+" ",substrings[4]+"    ");
+                System.out.printf("---------------------------------------------------------------------------------------------------\n");
+
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file: " + e.getMessage());
+        }
+    }
     private static void displayFileContent(String fileName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -767,5 +817,5 @@ public class DigitalMarket {
         System.out.println("Digital Market - Your go-to platform for buying and selling digital goods.");
         System.out.println("Main Aim: Provide a convenient and secure platform for digital transactions.");
         System.out.println("Motto: Connect, Transact, Thrive");
-    }  
+    }
 }
