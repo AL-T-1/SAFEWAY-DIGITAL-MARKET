@@ -1,3 +1,4 @@
 600400,Aelaf,Nopass,9975,0901223211,email@gmail.com,
 600666,Gates,bill,999810,0987654321,hell@gmail.com,
 600006,Abubeker,pass123,3700,0911111111,Abu2000@gmail.com
+600007,alen,123,33652.0,36985241,test@test.com
