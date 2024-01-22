@@ -98,7 +98,7 @@ class Buyer extends User {
 
         if (checkBuyerCredentials(enteredAccountNumber, enteredPassword)) {
             System.out.println("Login successful!");
-            purchaseProduct();
+
             return true;
         } else {
             System.out.println("Invalid login. Please try again.");
@@ -109,9 +109,9 @@ class Buyer extends User {
     @Override
     void displayUserInfo() {
         System.out.println("Buyer Information:");
-        System.out.println("Name: " + name);
+        System.out.print("Name: " + name+"\t\t\t\t\t\t\t");
         System.out.println("Account Number: " + accountNumber);
-        System.out.println("Phone Number: " + phoneNumber);
+        System.out.print("Phone Number: " + phoneNumber+"\t\t\t\t\t");
         System.out.println("Email Address: " + emailAddress);
         System.out.println("Money Deposit: $" + moneyDeposit);
     }
@@ -184,8 +184,23 @@ class Buyer extends User {
         }
         return deposit;
     }
-    private void purchaseProduct() {
-        displayProductFile();
+    void purchaseProduct() {
+        int entry = getAmountInput("What would you like to purchase?\n1. Electronics\n2. Clothing\n3. Vehicle\n4. Education Materials ");
+        switch (entry){
+            case 1:
+                getProductByType("Electronics");
+                break;
+            case 2:
+                getProductByType("Clothing");
+                break;
+            case 3:
+                getProductByType("Vehicle");
+                break;
+            case 4:
+                getProductByType("Education");
+                break;
+        }
+       // displayProductFile();
 
         // Get user input for the product to purchase
         String productName = getInput("Enter the name of the product you want to purchase: ");
@@ -253,6 +268,34 @@ class Buyer extends User {
                     if (nameFromFile.equals(productName)) {
                         return new Product(parts[0].trim(), Double.parseDouble(parts[1].trim()),
                                 parts[2].trim(), Integer.parseInt(parts[3].trim()), parts[4].trim());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the product file: " + e.getMessage());
+        }
+        return null;
+    }
+
+    private Product getProductByType(String productType) {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("product.txt"));
+                System.out.printf("---------------------------------------------------------------------------------------------------\n");
+                System.out.printf("                                          PRODUCT LIST\n");
+                System.out.printf("---------------------------------------------------------------------------------------------------\n");
+                System.out.printf("|%-25s |%-10s| %-26s|%10s|%20s|\n","   Name","   Price","     Category","Quantity ","Phone No     ");
+                System.out.printf("---------------------------------------------------------------------------------------------------\n");
+
+            for (String line : lines) {
+                String[] parts = line.split(",");
+                if (parts.length == 5) {
+                    String typeFromFile = parts[2].trim();
+                    if (typeFromFile.equals(productType)) {
+                        System.out.printf("|%-25s |%-10s| %-26s|%10s|%20s|\n","   "+parts[0],"   "+parts[1],"     "+parts[2],parts[3]+" ",parts[4]+"    ");
+                        System.out.printf("---------------------------------------------------------------------------------------------------\n");
+
+                        /*return new Product(parts[0].trim(), Double.parseDouble(parts[1].trim()),
+                                parts[2].trim(), Integer.parseInt(parts[3].trim()), parts[4].trim());*/
                     }
                 }
             }
@@ -377,7 +420,7 @@ class Seller extends User {
 
         if (checkSellerCredentials(enteredAccountNumber, enteredPassword)) {
             System.out.println("Login successful!");
-            postProduct();
+
             return true;
         } else {
             System.out.println("Invalid login. Please try again.");
@@ -388,9 +431,9 @@ class Seller extends User {
     @Override
     void displayUserInfo() {
         System.out.println("Seller Information:");
-        System.out.println("Name: " + name);
+        System.out.print("Name: " + name+"\t\t\t\t\t\t\t");
         System.out.println("Account Number: " + accountNumber);
-        System.out.println("Phone Number: " + phoneNumber);
+        System.out.print("Phone Number: " + phoneNumber+"\t\t\t\t\t");
         System.out.println("Email Address: " + emailAddress);
         System.out.println("Money Deposit: $" + moneyDeposit);
     }
@@ -679,6 +722,7 @@ public class DigitalMarket {
                 Buyer buyer = new Buyer("", "", "", 0.0, "", "");
                 if (buyer.login()) {
                     buyer.displayUserInfo();
+                    buyer.purchaseProduct();
                     // Additional buyer actions
                 }
                 break;
@@ -701,6 +745,7 @@ public class DigitalMarket {
                 Seller seller = new Seller("", "", "", 0.0, "", "");
                 if (seller.login()) {
                     seller.displayUserInfo();
+                    seller.postProduct();
                     // Additional seller actions
                 }
                 break;
